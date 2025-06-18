@@ -1,0 +1,20 @@
+{
+  "name": "qiankun-micro-fe",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "main",
+    "sub-app1",
+    "sub-app2"
+  ],
+  "scripts": {
+    "start": "pnpm -r --parallel start",
+    "build": "pnpm -r build",
+    "start:main": "pnpm --filter main start",
+    "start:sub-app1": "pnpm --filter sub-app1 start",
+    "start:sub-app2": "pnpm --filter sub-app2 start"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 
