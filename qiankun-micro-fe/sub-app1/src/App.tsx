@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import CommunicationDemo from './CommunicationDemo';
 
 // 定义Props类型
 interface AppProps {
@@ -9,6 +10,7 @@ interface AppProps {
 const App: React.FC<AppProps> = ({ shared }) => {
   const [message, setMessage] = useState<string>('');
   const [receivedMessages, setReceivedMessages] = useState<string[]>([]);
+  const [showDemo, setShowDemo] = useState<boolean>(false);
 
   useEffect(() => {
     // 确保shared对象存在
@@ -67,6 +69,11 @@ const App: React.FC<AppProps> = ({ shared }) => {
     }
   };
 
+  // 切换演示组件显示
+  const toggleDemo = () => {
+    setShowDemo(!showDemo);
+  };
+
   return (
     <div className="sub-app">
       <header className="sub-app-header">
@@ -74,45 +81,60 @@ const App: React.FC<AppProps> = ({ shared }) => {
         {!shared && <div className="warning-banner">通信功能不可用 - shared对象未定义</div>}
       </header>
       <div className="sub-app-content">
-        <h2>这是子应用1的内容</h2>
-        
-        <div className="communication-container">
-          <div className="message-input">
-            <input 
-              type="text" 
-              value={message} 
-              onChange={(e) => setMessage(e.target.value)} 
-              placeholder="输入消息" 
-              disabled={!shared}
-            />
-            <div className="button-group">
-              <button onClick={sendToMain} disabled={!shared}>发送给主应用</button>
-              <button onClick={sendToSubApp2} disabled={!shared}>发送给子应用2</button>
+        <div className="app-controls">
+          <button 
+            onClick={toggleDemo}
+            className="toggle-demo-btn"
+          >
+            {showDemo ? '显示基础应用' : '显示通信演示'}
+          </button>
+        </div>
+
+        {showDemo ? (
+          <CommunicationDemo shared={shared} />
+        ) : (
+          <>
+            <h2>这是子应用1的内容</h2>
+            
+            <div className="communication-container">
+              <div className="message-input">
+                <input 
+                  type="text" 
+                  value={message} 
+                  onChange={(e) => setMessage(e.target.value)} 
+                  placeholder="输入消息" 
+                  disabled={!shared}
+                />
+                <div className="button-group">
+                  <button onClick={sendToMain} disabled={!shared}>发送给主应用</button>
+                  <button onClick={sendToSubApp2} disabled={!shared}>发送给子应用2</button>
+                </div>
+              </div>
+
+              <div className="message-history">
+                <h3>收到的消息:</h3>
+                {receivedMessages.length > 0 ? (
+                  <ul>
+                    {receivedMessages.map((msg, index) => (
+                      <li key={index}>{msg}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>暂无消息</p>
+                )}
+              </div>
             </div>
-          </div>
 
-          <div className="message-history">
-            <h3>收到的消息:</h3>
-            {receivedMessages.length > 0 ? (
+            <div className="feature-box">
+              <h3>子应用1的特点</h3>
               <ul>
-                {receivedMessages.map((msg, index) => (
-                  <li key={index}>{msg}</li>
-                ))}
+                <li>使用React框架</li>
+                <li>通过qiankun与主应用通信</li>
+                <li>可以独立开发、测试和部署</li>
               </ul>
-            ) : (
-              <p>暂无消息</p>
-            )}
-          </div>
-        </div>
-
-        <div className="feature-box">
-          <h3>子应用1的特点</h3>
-          <ul>
-            <li>使用React框架</li>
-            <li>通过qiankun与主应用通信</li>
-            <li>可以独立开发、测试和部署</li>
-          </ul>
-        </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
