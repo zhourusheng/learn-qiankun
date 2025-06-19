@@ -1,1 +1,83 @@
 /* 这个文件是为了满足App.tsx中的导入需求，实际样式已在index.css中定义 */ 
+
+.app-main {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-container {
+  display: flex;
+  gap: 20px;
+}
+
+.menu-item {
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.content-container {
+  flex: 1;
+  padding: 20px;
+}
+
+/* 通信面板样式 */
+.communication-panel {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  gap: 10px;
+}
+
+.communication-panel input {
+  flex-grow: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.communication-panel button {
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.communication-panel button:hover {
+  background-color: #45a049;
+}
+
+/* 消息显示区域样式 */
+.message-display {
+  margin: 10px 0;
+  padding: 10px 15px;
+  background-color: #e7f3fe;
+  border-left: 5px solid #2196f3;
+  border-radius: 4px;
+  color: #333;
+  font-size: 16px;
+} 
